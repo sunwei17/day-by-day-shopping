@@ -5,6 +5,23 @@ from models import UserInfo
 from django.core.urlresolvers import reverse
 import hashlib
 # Create your views here.
+def site(request):
+    uid = request.session['user_id']
+    user=UserInfo.objects.get(id=uid)
+    if request.method=='POST':
+        post= request.POST
+        user.ushou=post.get('ushou')
+        user.uaddress=post.get('uaddress')
+        user.uyoubian=post.get('uyoubian')
+        user.uphone = post.get('uphone')
+        user.save()
+    context={'user':user}
+    return render(request,'user_center_site.html',context)
+def uinfo(request):
+    uid=request.session['user_id']
+    User=UserInfo.objects.filter(id=uid)
+    context={'uemail':User[0].uemail}
+    return  render(request,'user_center_info.html',context)
 def login(request):
     uname=request.COOKIES.get('uname','')
     context={'title':'用户登录','error_name':0,'error_pwd':0,'uname':uname,'upwd':''}
