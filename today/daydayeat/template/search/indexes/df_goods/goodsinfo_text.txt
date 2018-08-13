@@ -1,0 +1,4 @@
+#goodsinfo_text.txt
+{{object.gtitle}}
+{{object.gjianjie}}
+{{object.gcontent}}

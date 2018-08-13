@@ -1,3 +1,4 @@
+#coding=utf-8
 """
 Django settings for daydayeat project.
 
@@ -38,12 +39,18 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'df_user',
+    'df_goods',
+    'tinymce',
+    'df_cart',
+    'df_order',
+    'haystack',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -108,3 +115,16 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
+MEDIA_ROOT=os.path.join(BASE_DIR,'static')
+#MEDIA_ROOT='/var/www/test/static'部署时
+
+HAYSTACK_CONNECTIONS={
+    'default':{
+        'ENGINE':'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR,'whoosh_index'),
+    }
+}
+#自动生成索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+#每页n条
+HAYSTACK_SEARCH_RESULTS_PER_PACE=18
